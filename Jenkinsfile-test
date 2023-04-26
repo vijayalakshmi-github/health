@@ -49,7 +49,7 @@ pipeline{
     }
     stage('Ansible-configure'){
       steps{
-        ansiblePlaybook become: true, credentialsId: 'machine2', disableHostKeyChecking: true, installation: 'ansibleDeploy', inventory: '/etc/ansible/hosts', playbook: 'deploy.yml'
+        ansiblePlaybook become: true, credentialsId: 'ansibleDeploy', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'deploy.yml'
       }
     }
 
