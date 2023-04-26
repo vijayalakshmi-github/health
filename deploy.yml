@@ -20,4 +20,4 @@
     become_user: root
 
   - name: Deploy and Run Image
-    command: docker run -itd -p 8082:8083 vijayalakshmis/medicure:latest
+    command: docker run -itd -p 8080:8083 vijayalakshmis/medicure:latest
