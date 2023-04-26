@@ -1,0 +1,57 @@
+pipeline{
+  agent any
+
+  environment{
+    imagename="vijayalakshmis/medicure"
+    registryCredential = 'Docker'
+    dockerImage = ''
+  }
+  tools
+  {
+    maven 'MAVEN_3'
+  }
+  stages{
+    stage('Checkout'){
+      steps{
+        echo 'Checkout the source code'
+        git 'https://github.com/vijayalakshmi-github/health.git'
+      }
+    }
+
+    stage('Build'){
+      steps{
+        echo 'Packaging'
+        sh 'mvn clean package'
+      }
+    }
+
+    stage('Generate test report'){
+      steps{
+        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/medicure_test/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+      }
+    }
+
+    stage('Build image') {
+      steps{
+        script {
+          dockerImage = docker.build imagename
+        }
+      }
+    }
+    stage('Push Image') {
+      steps{
+        script {
+          docker.withRegistry( '', registryCredential ) {
+             dockerImage.push('latest')
+          }
+        }
+      }
+    }
+    stage('Ansible-configure'){
+      steps{
+        ansiblePlaybook become: true, credentialsId: 'machine2', disableHostKeyChecking: true, installation: 'ansibleDeploy', inventory: '/etc/ansible/hosts', playbook: 'deploy.yml'
+      }
+    }
+
+  }
+} 

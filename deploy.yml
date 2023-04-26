@@ -1,0 +1,23 @@
+---
+- name: Configure Docker on deployment server
+  hosts: [testserver]
+  become: true
+  tasks:
+  - name: update
+    command: sudo apt update
+
+  - name: Install python and pip
+    command: sudo apt install -y python-pip
+
+  - name: Install Docker
+    command: sudo apt-get install -y docker.io
+    become: yes
+    become_user: root
+
+  - name: Start Docker Service
+    command: sudo systemctl start docker
+    become: yes
+    become_user: root
+
+  - name: Deploy and Run Image
+    command: docker run -itd -p 8080:8081 vijayalakshmis/medicure:latest
