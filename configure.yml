@@ -34,17 +34,3 @@
         name: docker-ce
         state: present
 
-  - name: Add Minikube repository
-    apt_repository:
-       repo: deb https://storage.googleapis.com/minikube/releases/latest/ubuntu/ bionic main
-       state: present
-
-  - name: Install Minikube
-    apt:
-        name: minikube
-        state: present
-
-  - name: Install kubectl
-    apt:
-        name: kubectl
-        state: present
