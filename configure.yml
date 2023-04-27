@@ -19,33 +19,32 @@
           - gnupg-agent
           - software-properties-common
       state: present
-
-    - name: Add Docker GPG key
-      apt_key:
+  - name: Add Docker GPG key
+    apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
         state: present
 
-    - name: Add Docker repository
-      apt_repository:
+  - name: Add Docker repository
+    apt_repository:
         repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
         state: present
 
-    - name: Install Docker
-      apt:
+  - name: Install Docker
+    apt:
         name: docker-ce
         state: present
 
-    - name: Add Minikube repository
-      apt_repository:
-        repo: deb https://storage.googleapis.com/minikube/releases/latest/ubuntu/ bionic main
-        state: present
+  - name: Add Minikube repository
+    apt_repository:
+       repo: deb https://storage.googleapis.com/minikube/releases/latest/ubuntu/ bionic main
+       state: present
 
-    - name: Install Minikube
-      apt:
+  - name: Install Minikube
+    apt:
         name: minikube
         state: present
 
-    - name: Install kubectl
-      apt:
+  - name: Install kubectl
+    apt:
         name: kubectl
         state: present
