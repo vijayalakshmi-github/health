@@ -11,14 +11,14 @@
     command: sudo apt install -y python-pip
 
   - name: Install required packages
-      apt:
-        name:
+    apt:
+      name:
           - apt-transport-https
           - ca-certificates
           - curl
           - gnupg-agent
           - software-properties-common
-        state: present
+      state: present
 
     - name: Add Docker GPG key
       apt_key:
