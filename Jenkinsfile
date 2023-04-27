@@ -14,7 +14,7 @@ pipeline{
     stage('Checkout'){
       steps{
         echo 'Checkout the source code'
-        git 'https://github.com/vijayalakshmi-github/health.git'
+        git 'https://github.com/vijayalakshmi-github/medicure.git'
       }
     }
 
