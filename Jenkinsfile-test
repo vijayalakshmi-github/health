@@ -52,6 +52,11 @@ pipeline{
         ansiblePlaybook become: true, credentialsId: 'ansibleDeploy', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'deploy.yml'
       }
     }
-
+    stage('Selenium Test'){
+      steps{
+        sh 'chmod -R +x medicure.jar'
+	sh 'java -jar medicure.jar'
+      }
+    }
   }
 } 
